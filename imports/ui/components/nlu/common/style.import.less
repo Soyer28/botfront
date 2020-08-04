@@ -1,0 +1,194 @@
+.entity-dropdown.ui.selection.dropdown {
+    border-color: fade(@teal, 50%);
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-radius: 0;
+    min-width: 12em;
+
+    & > input.search {
+        padding-left: 3em !important;
+    }
+
+    &.icon > .icon {
+        background-color: fade(@teal, 5%);
+        color: @teal;
+    }
+}
+
+.intent-dropdown.ui.selection.dropdown {
+    border-color: fade(@purple, 50%);
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-radius: 0;
+    min-width: 12em;
+
+    & > input.search {
+        padding-left: 3em !important;
+    }
+
+    &.icon > .icon {
+        background-color: fade(@purple, 5%);
+        color: @purple;
+    }
+}
+
+.intent-label {
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    color: @purple;
+    width: max-content;
+    font-weight: medium;
+    padding: 0;
+    margin: 0;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    max-width: 100%;
+    word-break: break-word;
+    i.icon.small {
+        display: inline;
+    }
+    cursor: default;
+
+    &.disabled {
+        color: @grey;
+    }
+    &.null {
+        color: @grey;
+    }
+    .action-on-label {
+        float: right;
+        color: @grey;
+        position: relative;
+        bottom: 2px;
+        visibility: hidden;
+    }
+    &:not(.uneditable){
+        .content-on-label {
+            min-width: 130px;
+            position: relative;
+            bottom: 1px;
+        }
+    }
+    &:not(.disabled):not(.uneditable):hover, &.selected {
+        border: 1px solid rgba(176, 176, 176, 0.4);
+        span {
+            color: @grey;
+        }
+        .action-on-label {
+            visibility: visible;
+        }
+    }
+}
+
+.ui.modal.intent-popup {
+    &:before {
+        position: absolute;
+        top: -30px;
+        font-size: large;
+        color: #fff;
+        content: 'Set intent for selected utterances';
+    }
+    width: 300px;
+}
+
+.ui.popup.intent-popup, 
+.ui.modal.intent-popup {
+    padding: 0;
+
+    .ui.fluid.input {
+        margin: 0;
+    }
+    input {
+        border: 0;
+        height: 50px;
+        background: rgba(0, 0, 0, 0.04) !important;
+    }
+    button {
+        border-radius: 0 0 4px 4px;
+        height: 40px;
+    }
+}
+
+.intent-dropdown {
+    .intent-label {
+        &.selected {
+            font-weight: bold;
+            &::before {
+                margin-right: 5px;
+                content: '\25B6';
+            }
+        }
+        border: initial;
+        span {
+            color: initial;
+        }
+    }
+    .virtual-table .row {
+        margin-right: 0;
+        &.selected {
+            background-color: fade(@purple, 10%);
+        }
+        &.selected:hover {
+            background-color: fade(@purple, 20%);
+        }
+        &:hover {
+            cursor: pointer;
+            .intent-label.selectable {
+                cursor: pointer;
+            }
+        }
+    }
+    .reset-intent {
+        position: absolute;
+        right: 0;
+        top: 6px;
+        .button {
+            margin: 0;
+            background-color: transparent;
+            &:hover { background-color: transparent; }
+        }
+    }
+}
+
+.entity-container {
+    line-height: 1.25;
+    display: inline-block;
+    position: relative;
+    .float {
+        position: absolute;
+        width: 100px;
+        bottom: ~"calc(100% - 1px)";
+        font-size: small;
+    }
+}
+
+.createentitycolorclasses(@i:1) when(@i <= length(@basic-colors)) {
+    @name: extract(extract(@basic-colors, @i), 1);
+    @color: extract(extract(@basic-colors, @i), 2);
+
+    .entity-container.@{name} {
+        :not(.float) {
+            background-color: fade(@color, 17%);
+            border-bottom: 2.5px solid @color;
+        }
+        .float {
+            color: @color
+        }
+    }
+    .createentitycolorclasses(@i + 1);
+}
+
+.createentitycolorclasses();
+
+.utterance-viewer {
+    .selected-text {
+        background-color: #c4d8f5;
+    }
+    line-height: 1.25;
+    span {
+        word-break: break-word;
+    }
+}
